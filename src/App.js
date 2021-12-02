@@ -1,23 +1,25 @@
-import logo from './logo.svg';
+import { useEffect } from 'react';
 import './App.css';
-
+import firebase from './firebase';
 function App() {
+  useEffect(() => {
+    getTokens();
+  }, [])
+  const getTokens = async () => {
+    try {
+      const messaging = firebase.messaging();
+      await messaging.requestPermission();
+      const token = await messaging.getToken();
+      console.log('token:', token);
+      return token;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h2>Web push notification</h2>
     </div>
   );
 }
