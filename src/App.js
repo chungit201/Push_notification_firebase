@@ -20,6 +20,7 @@ function App() {
   return (
     <div className="App">
       <h2>Web push notification</h2>
+      <button onClick={handleClick}>Send notification</button>
     </div>
   );
 }
